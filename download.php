@@ -12,11 +12,20 @@
 	// The input string
 	$key = trim($_GET['key']);
 	$i = trim($_GET['i']);
-	
+
+	// create file to store first download timestamp
+    $datesFilename = 'keys/dates';
+    if(!file_exists($datesFilename)){
+        $fileDate = fopen($datesFilename,'a');
+        fclose($file);
+    }
+
 	/*
 	 *	Retrive the keys
 	 */
 	$keys = file('keys/keys');
+	$dates = file($datesFilename);
+
 	$match = false;
 	
 	/*
@@ -24,16 +33,48 @@
 	 *	When the match is found, remove it
 	 */
 	foreach($keys as &$one) {
-		if(rtrim($one)==$key) {
+        $currentKey = rtrim($one);
+        if($currentKey ==$key) {
 			$match = true;
-			$one = '';
-		}
+
+			//Check time expiration for download
+			$keyHasTimestamp = false;
+            foreach($dates as &$date) {
+                $dateByKeyLine = explode("|", $date);
+
+                if($dateByKeyLine[0]==$key){
+                    $keyHasTimestamp=true;
+                    if(intval(rtrim($dateByKeyLine[1]))+EXPIRATION_LINK_SECONDS < time()) {
+                        $match = false;
+                        //if time expires remove the key and the timestamp
+                        $one = '';
+                        $date = '';
+                    }
+                }
+            }
+
+            //first time download, we store the timestamp of the first download
+            if(!$keyHasTimestamp){
+                array_push($dates, $key."|".time()."\n");
+            }
+
+		} else {
+            //clean old download that expires
+            foreach($dates as &$date) {
+                $dateByKeyLine = explode("|", $date);
+                if($dateByKeyLine[0]==$currentKey && intval(rtrim($dateByKeyLine[1]))+EXPIRATION_LINK_SECONDS < time()) {
+                    $one = '';
+                    $date = '';
+                }
+            }
+        }
 	}
 	
 	/*
 	 *	Puts the remaining keys back into the file
 	 */
 	file_put_contents('keys/keys',$keys);
+    file_put_contents($datesFilename,$dates);
 	
 	/*
 	 * If we found a match

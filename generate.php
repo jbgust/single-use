@@ -36,6 +36,7 @@
 
 				// Add to the download list
 				$download_list[] = array(
+					'title' => $download['suggested_name'],
 					'download_link' => $download_link,
 					'filesize' => $filesize
 				);
@@ -78,13 +79,15 @@
 		 <div class="container">
 			<h1>Download key created</h1>
 			<h6>Your new single-use download links:<h6><br>
-			<?php foreach ($download_list as $download) { ?>			
-			<h4>
-				<a href="<?php echo $download['download_link'] ?>"><?php echo $download['download_link'] ?></a><br>
-				Size: <?php echo $download['filesize'] ?>
-			</h4>
+			<? foreach ($download_list as $download) { ?>
+			<div style="margin-bottom: 15px;">
+				<h2><?= $download['title'] ?></h2>
+				<h4>
+					<a href="<?= $download['download_link'] ?>"><?= $download['download_link'] ?></a><br>
+					Size: <?= $download['filesize'] ?>
+				</h4>
+			</div>
 			<? } ?>
-			
 			<br><br>
 			<a href="/singleuse">Back to the demo</a>
 		</div>

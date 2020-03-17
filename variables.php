@@ -41,6 +41,9 @@
 	
 	// The expiration date of the link (examples: +1 year, +5 days, +13 hours)
 	define('EXPIRATION_DATE', '+1 month');
+
+	// Time during the user can retry the download in seconds
+    define('EXPIRATION_LINK_SECONDS',86400);
 	
 	// Don't worry about this
 	header("Cache-Control: no-cache, must-revalidate");
