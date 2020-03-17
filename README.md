@@ -17,6 +17,8 @@ You can also mask the name of the file being downloaded, for further protection.
 
 ## Update
 
+On Mars 16, 2020 add feature to restart download during one day if download failed.
+
 On Feb 28, 2018 a feature was added to allow remote files to be downloaded, in addition to local files
 
 On July 11, 2016 a multi-file feature branch was merged with the single file. It is now possible to download multiple files at once. 
@@ -53,6 +55,9 @@ You will need to modify the `variables.php` file and set your file specific info
 	
 	// The admin password to generate a new download link
 	define('ADMIN_PASSWORD','1234');
+	
+	// Time during the user can retry the download in seconds
+        define('EXPIRATION_LINK_SECONDS',86400);
 	
 	// The expiration date of the link (examples: +1 year, +5 days, +13 hours)
 	define('EXPIRATION_DATE', '+1 month');
