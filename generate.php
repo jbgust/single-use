@@ -87,15 +87,17 @@
 	<body>
 		 <div class="container">
 			<h1>Download key created</h1>
-			<h6>Your new single-use download links:<h6><br>
+			<h6 style="margin-bottom: 30px;">Your new single-use download links:<h6>
+			<hr />
 			<? foreach ($download_list as $download) { ?>
 			<div style="margin-bottom: 15px;">
 				<h2><?= $download['title'] ?></h2>
-				<h4>
+				<h5>
 					<a href="<?= $download['download_link'] ?>"><?= $download['download_link'] ?></a><br>
 					Size: <?= $download['filesize'] ?>, <?= $download['orderNumber'] ?> download
-				</h4>
+				</h5>
 			</div>
+			<hr />
 			<? } ?>
 			<br><br>
 			<a href="/singleuse">Back to the demo</a>

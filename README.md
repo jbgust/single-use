@@ -17,7 +17,7 @@ You can also mask the name of the file being downloaded, for further protection.
 
 ## Update
 
-On January 31, 2021 add counter on download
+On January 31, 2021 add counter on download and layout improvements.
 
 On Mars 16, 2020 add feature to restart download during one day if download failed.
 
