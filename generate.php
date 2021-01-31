@@ -34,11 +34,20 @@
 				$download_link = "http://" . $_SERVER['HTTP_HOST'] . DOWNLOAD_PATH . "?key=" . $new . "&i=" . $key; 
 				$filesize = (isset($download['file_size'])) ? $download['file_size'] : human_filesize(filesize($download['protected_path']), 2);
 
+				//retrive download count
+				$filename = $download['suggested_name'];
+				$countFile = 'count/'.$filename.'.txt'; // the name of the text file (must be writeable by the server)
+				$orderNumber = 0;
+				if(file_exists($countFile)){
+					$orderNumber = file_get_contents ($countFile);
+				}
+
 				// Add to the download list
 				$download_list[] = array(
 					'title' => $download['suggested_name'],
 					'download_link' => $download_link,
-					'filesize' => $filesize
+					'filesize' => $filesize,
+					'orderNumber' => $orderNumber
 				);
 
 				/*
@@ -84,7 +93,7 @@
 				<h2><?= $download['title'] ?></h2>
 				<h4>
 					<a href="<?= $download['download_link'] ?>"><?= $download['download_link'] ?></a><br>
-					Size: <?= $download['filesize'] ?>
+					Size: <?= $download['filesize'] ?>, <?= $download['orderNumber'] ?> download
 				</h4>
 			</div>
 			<? } ?>

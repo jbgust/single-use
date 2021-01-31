@@ -91,6 +91,14 @@
 
 		set_time_limit(0);
 
+		$countFile = 'count/'.$filename.'.txt'; // the name of the text file (must be writeable by the server)
+		$orderNumber = 0;
+		if(file_exists($countFile)){
+			$orderNumber = file_get_contents ($countFile);
+		}
+		// read file data and store as variable
+		file_put_contents($countFile, intval($orderNumber)+1);
+
 		// If a remote file is set
 		if($remote_file) {
 
@@ -101,7 +109,6 @@
 
 		// This is a local file
 		} else {
-		
 			header("Content-Description: File Transfer");
 			header("Content-type: {$contenttype}");
 			header("Content-Disposition: attachment; filename=\"{$filename}\"");

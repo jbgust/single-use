@@ -17,6 +17,8 @@ You can also mask the name of the file being downloaded, for further protection.
 
 ## Update
 
+On January 31, 2021 add counter on download
+
 On Mars 16, 2020 add feature to restart download during one day if download failed.
 
 On Feb 28, 2018 a feature was added to allow remote files to be downloaded, in addition to local files
